@@ -10,9 +10,15 @@ def sendmail():
     mail_pass = 'ixzdeybxbvumbcge'  # 口令
 
     # sender = input('Enter mailcount')
-    receivers = ['wangpengcheng10@huawei.com']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+    receivers = ['1498310014@qq.com']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
-    message = MIMEText('mua!~下午好', 'plain', 'utf-8')
+    mail_msg = '''
+    <p>mua!</p>
+    <p><a href = 'https://github.com/flashFL/auto_email'>看这里<<<</a></p>
+    
+    '''
+
+    message = MIMEText(mail_msg, 'HTML', 'utf-8')
     message['From'] = Header("fafa", 'utf-8')
     message['To'] = Header("小可爱", 'utf-8')
     message['Subject'] = Header('Hi~ o(*￣▽￣*)ブ')
@@ -28,8 +34,13 @@ def sendmail():
         print("Error: 无法发送邮件")
 
 
-schedule.every().friday.at('15:00').do(sendmail)
+def auto_email():
+    schedule.every().friday.at('15:00').do(sendmail)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+if __name__ == '__main__':
+    sendmail()
