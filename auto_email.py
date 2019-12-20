@@ -8,11 +8,10 @@ import time
 
 def sendmail():
     mail_host = "smtp.qq.com"  # 设置服务器
-    mail_user = '976668382@qq.com'  # 用户名
-    mail_pass = 'npstgqgglrrqbeib'  # 口令
+    mail_user = input('Enter username')  # 用户名
+    mail_pass = input('Enter password')  # 口令
 
-    # sender = input('Enter mailcount')
-    receivers = ['976668382@qq.com']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+    receivers = [input("Enter receiver's address")]  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
     message = MIMEMultipart('related')
     message['From'] = Header("fafa", 'utf-8')
@@ -22,7 +21,6 @@ def sendmail():
     msgAlternative = MIMEMultipart('alternative')
     message.attach(msgAlternative)
 
-
     mail_msg = '''
     <p>小可爱，下午好！</p>
     <p><img src="http://pic1.win4000.com/mobile/2018-08-17/5b769194be2e5.jpg"></p>
@@ -31,18 +29,15 @@ def sendmail():
     '''
     message.attach(MIMEText(mail_msg, 'html', 'utf-8'))
 
-    # 指定图片为当前目录
     fp = open('1.jpg', 'rb')
     msgImage = MIMEImage(fp.read())
     fp.close()
 
-    # 定义图片 ID，在 HTML 文本中引用
     msgImage.add_header('Content-ID', '<image1>')
 
 
     att1 = MIMEText(open('test.txt', 'rb').read(), 'base64', 'utf-8')
     att1["Content-Type"] = 'application/octet-stream'
-    # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
     att1["Content-Disposition"] = 'attachment; filename="test.txt"'
     message.attach(att1)
 
