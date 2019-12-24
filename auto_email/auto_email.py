@@ -5,13 +5,16 @@ from email.header import Header
 from email.mime.image import MIMEImage
 import schedule
 import time
+from configparser import ConfigParser
 
 def sendmail():
     mail_host = "smtp.qq.com"  # 设置服务器
-    mail_user = input('Enter username')  # 用户名
-    mail_pass = input('Enter password')  # 口令
+    config = ConfigParser()
+    config.read('./config.ini', encoding='utf-8')
+    mail_user = config.get('email_qq', 'mail_user')  # 用户名
+    mail_pass = config.get('email_qq', 'mail_pass')  # 口令
 
-    receivers = [input("Enter receiver's address")]  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+    receivers = config.get('email_qq', 'receivers')  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
     message = MIMEMultipart('related')
     message['From'] = Header("fafa", 'utf-8')
